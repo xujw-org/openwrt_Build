@@ -14,11 +14,10 @@ on:
       #   description: 'ssh'
       #   required: false
       #   default: 'false'
-      SSH_ACTION:
-        description: 'SSH远程配置固件'
+      ssh:
+        description: 'Enable tmate SSH (true/false)'
         required: false
         default: 'false'
-        type: boolean
 
 env:
   UPLOAD_BIN_DIR: false
@@ -138,9 +137,12 @@ jobs:
         fi
         df -hT
 
-    - name: SSH远程连接（make menuconfig）
-      if: env.SSH_ACTION == 'true'
-      uses: danshui-git/debugger-action@main
+    - name: Start tmate session (Pre-Compile)
+      if: ${{ inputs.ssh == 'true' }}
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes: 120
+      with:
+        limit-access-to: "true"
 
     - name: Compile the firmware
       working-directory: ./openwrt
