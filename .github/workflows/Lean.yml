@@ -10,10 +10,10 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      # ssh:
-      #   description: 'ssh'
-      #   required: false
-      #   default: 'false'
+      ssh2:
+        description: 'ssh2'
+        required: false
+        default: 'false'
       ssh:
         description: 'Enable tmate SSH (true/false)'
         required: false
@@ -177,6 +177,11 @@ jobs:
     - name: Upload .config to diy directory
       if: always()  # 即使编译失败也执行
       run: |
+        # 清理可能存在的临时文件
+        git clean -fd --exclude=diy/
+    
+        # 重置已跟踪文件的修改（如有）
+        git reset --hard HEAD
         # 从 openwrt 目录复制到仓库根目录的 diy 下
         cp openwrt/.config diy/${{matrix.target}}.config
         
@@ -192,6 +197,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
     
     - name: Deploy imagebuilder to server
+      if: ${{ inputs.ssh2 == 'true' }}
       uses: easingthemes/ssh-deploy@main
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
