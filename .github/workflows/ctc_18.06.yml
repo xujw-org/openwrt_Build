@@ -92,13 +92,13 @@ jobs:
         rm -rf feeds/packages/net/{alist,adguardhome,brook,chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks}
         rm -rf feeds/packages/net/{lua-neturl,microsocks,naiveproxy,pdnsd-alt,redsocks2,simple-obfs,sing-box,ssocks,tcping,tuic-client}
         rm -rf feeds/packages/net/{gost,mosdns,redsocks*,smartdns,trojan*,v2ray*,xray*}	
-        cp -f feeds/smpackage/.github/diy/default-settings package/emortal/default-settings/files/99-default-settings
-        cp -f feeds/smpackage/.github/diy/banner package/emortal/default-settings/files/openwrt_banner
-        cp -f feeds/smpackage/.github/diy/banner package/base-files/files/etc/banner
-        cp -f feeds/smpackage/.github/diy/index_x86.htm package/emortal/autocore/files/generic/index.htm
-        sed -i "s/%D %V, %C/openwrt $(date +'%m.%d') by kenzo/g" package/base-files/files/etc/banner
+        cp -f ../diy/default-settings package/emortal/default-settings/files/99-default-settings
+        cp -f ../diy/banner package/emortal/default-settings/files/openwrt_banner
+        cp -f ../diy/banner package/base-files/files/etc/banner
+        cp -f ../diy/index_x86.htm package/emortal/autocore/files/generic/index.htm
+        sed -i "s/%D %V, %C/openwrt $(date +'%m.%d') by King/g" package/base-files/files/etc/banner
         ./scripts/feeds update -a && ./scripts/feeds install -a
-        cp -f feeds/smpackage/.github/diy/${{matrix.target}}.config .config && make defconfig
+        cp -f ../diy/${{matrix.target}}.config .config && make defconfig
         
     - name: Download package
       working-directory: ./openwrt
