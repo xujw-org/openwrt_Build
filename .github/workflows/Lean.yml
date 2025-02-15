@@ -10,10 +10,15 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      ssh:
-        description: 'ssh'
+      # ssh:
+      #   description: 'ssh'
+      #   required: false
+      #   default: 'false'
+      SSH_ACTION:
+        description: 'SSH远程配置固件'
         required: false
         default: 'false'
+        type: boolean
 
 env:
   UPLOAD_BIN_DIR: false
@@ -132,6 +137,10 @@ jobs:
             rm -rf staging_dir/!(*${{ env.MTARGET }}*|host|hostpkg) build_dir/!(*${{ env.MTARGET }}*|host|hostpkg)
         fi
         df -hT
+
+    - name: SSH远程连接（make menuconfig）
+      if: env.SSH_ACTION == 'true'
+      uses: danshui-git/debugger-action@main
 
     - name: Compile the firmware
       working-directory: ./openwrt
