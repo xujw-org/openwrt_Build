@@ -140,9 +140,10 @@ jobs:
     - name: Start tmate session (Pre-Compile)
       if: ${{ inputs.ssh == 'true' }}
       uses: mxschmitt/action-tmate@v3
-      timeout-minutes: 120
+      timeout-minutes: 30
       with:
-        limit-access-to: "true"
+        show-web-url: "true"
+        limit-access-to: "false"
 
     - name: Compile the firmware
       working-directory: ./openwrt
