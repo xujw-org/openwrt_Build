@@ -16,3 +16,6 @@ sed -i 's/OpenWrt/OpenWrtKing/g' openwrt/package/base-files/files/bin/config_gen
 
 #去除默认密码
 sed -i "/CYXluq4wUazHjmCDBCqXF/d" package/lean/default-settings/files/zzz-default-settings
+
+git clone https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
+git clone  https://github.com/gdy666/luci-app-lucky.git package/lucky
