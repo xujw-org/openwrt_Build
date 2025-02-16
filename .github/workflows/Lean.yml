@@ -173,28 +173,6 @@ jobs:
         echo ${{matrix.target}} >> version.txt
         rm -rf sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-
-    - name: Upload .config to diy directory
-      if: always()  # 即使编译失败也执行
-      run: |
-        # 清理可能存在的临时文件
-        git clean -fd --exclude=diy/
-    
-        # 重置已跟踪文件的修改（如有）
-        git reset --hard HEAD
-        # 从 openwrt 目录复制到仓库根目录的 diy 下
-        cp openwrt/.config diy/${{matrix.target}}.config
-        
-        # 配置 Git 并提交更改
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git add diy/${{matrix.target}}.config
-        git commit -m "Update ${{matrix.target}}.config from build"
-        git pull --rebase origin ${{ github.ref }}
-        git push origin HEAD:${{ github.ref }}
-      env:
-        # 使用 GitHub Token 进行身份验证
-        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
     
     - name: Deploy imagebuilder to server
       # if: ${{ inputs.ssh2 == 'true' }}
@@ -278,6 +256,22 @@ jobs:
         name: ${{ env.date2 }} ${{matrix.target}}
         tag_name: ${{ env.date }}_${{matrix.target}}
         body_path: release.txt
+
+    - name: Upload .config to diy directory
+      if: always()  # 即使编译失败也执行
+      run: |
+        # 从 openwrt 目录复制到仓库根目录的 diy 下
+        cp openwrt/.config diy/${{matrix.target}}.config
+        
+        # 配置 Git 并提交更改
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add diy/${{matrix.target}}.config
+        git commit -m "Update ${{matrix.target}}.config from build"
+        git push origin HEAD:${{ github.ref }}
+      env:
+        # 使用 GitHub Token 进行身份验证
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
