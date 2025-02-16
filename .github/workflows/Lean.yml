@@ -175,7 +175,7 @@ jobs:
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
 
     - name: Commit config to diy folder
-      if: steps.organize.outputs.status == 'success' && !cancelled()
+      # if: steps.organize.outputs.status == 'success' && !cancelled()
       run: |
         # 配置Git身份
         git config --global user.name "GitHub Actions"
