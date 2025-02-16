@@ -197,7 +197,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
     
     - name: Deploy imagebuilder to server
-      if: ${{ inputs.ssh2 == 'true' }}
+      # if: ${{ inputs.ssh2 == 'true' }}
       uses: easingthemes/ssh-deploy@main
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
