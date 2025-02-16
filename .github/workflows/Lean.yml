@@ -173,6 +173,24 @@ jobs:
         echo ${{matrix.target}} >> version.txt
         rm -rf sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+
+    - name: Commit config to diy folder
+      if: steps.organize.outputs.status == 'success' && !cancelled()
+      run: |
+        # 配置Git身份
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        
+        # 将新生成的配置文件移动到diy目录
+        cp openwrt/.config ./diy/${{matrix.target}}.config
+        
+        # 提交更改
+        git add diy/${{matrix.target}}.config
+        git commit -m "Auto update ${{matrix.target}} config [skip ci]"
+        git push origin main
+      env:
+        # 使用PAT进行认证（需在仓库Secrets中配置REPO_TOKEN）
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
     
     - name: Deploy imagebuilder to server
       # if: ${{ inputs.ssh2 == 'true' }}
