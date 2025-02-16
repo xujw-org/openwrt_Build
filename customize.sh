@@ -20,3 +20,6 @@ sed -i "/CYXluq4wUazHjmCDBCqXF/d" openwrt/package/lean/default-settings/files/zz
 git clone https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
 # git clone  https://github.com/gdy666/luci-app-lucky.git package/lucky
 # git clone  https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
+
+rm -rf openwrt/package/feeds/smpackage/luci-app-dogcom
+rm -rf openwrt/package/feeds/smpackage/natflow
