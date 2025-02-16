@@ -18,5 +18,5 @@ sed -i 's/OpenWrt/OpenWrtKing/g' openwrt/package/base-files/files/bin/config_gen
 sed -i "/CYXluq4wUazHjmCDBCqXF/d" openwrt/package/lean/default-settings/files/zzz-default-settings
 
 git clone https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
-git clone  https://github.com/gdy666/luci-app-lucky.git package/lucky
-git clone  https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
+# git clone  https://github.com/gdy666/luci-app-lucky.git package/lucky
+# git clone  https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
