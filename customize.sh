@@ -19,4 +19,4 @@ sed -i "/CYXluq4wUazHjmCDBCqXF/d" package/lean/default-settings/files/zzz-defaul
 
 git clone https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
 git clone  https://github.com/gdy666/luci-app-lucky.git package/lucky
-git clone  https://github.com/nikkinikki-org/OpenWrt-nikki.git;main package/nikki
+git clone  https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
