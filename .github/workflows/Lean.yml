@@ -188,7 +188,7 @@ jobs:
         # 提交更改
         git add diy/${{matrix.target}}.config
         git commit -m "Auto update ${{matrix.target}} config [skip ci]"
-        git push origin main
+        git push origin master
       env:
         # 使用PAT进行认证（需在仓库Secrets中配置REPO_TOKEN）
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
