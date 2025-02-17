@@ -139,8 +139,8 @@ jobs:
 
     - name: Start tmate session (Pre-Compile)
       if: ${{ inputs.ssh == 'true' }}
-      uses: mxschmitt/action-tmate@v3
-      timeout-minutes: 30
+      uses: danshui-git/debugger-action@main
+      
 
     - name: Compile the firmware
       working-directory: ./openwrt
