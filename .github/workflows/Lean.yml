@@ -104,7 +104,7 @@ jobs:
         ./scripts/feeds update -a
 
     - name: Setup tmate session if SSH is enabled
-      uses: mxschmitt/action-tmate@v3
+      uses: danshui-git/debugger-action@main
       if: github.event.inputs.ssh == 'true'
       timeout-minutes: 30
 
