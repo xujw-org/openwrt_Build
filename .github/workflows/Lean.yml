@@ -45,10 +45,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
 
-    - name: Setup tmate session if SSH is enabled
-      uses: csexton/debugger-action@master
-      if: github.event.inputs.ssh == 'true'
-
     - name: Free disk space
       uses: coder-xiaomo/free-disk-space@main
       with:
@@ -107,9 +103,9 @@ jobs:
       run: |
         ./scripts/feeds update -a
 
-    # - name: Setup tmate session if SSH is enabled
-    #   uses: csexton/debugger-action@master
-    #   if: github.event.inputs.ssh == 'true'
+    - name: Setup tmate session if SSH is enabled
+      uses: csexton/debugger-action@master
+      if: github.event.inputs.ssh == 'true'
 
     - name: Defconfig ${{matrix.target}}
       env:
