@@ -98,14 +98,10 @@ jobs:
         ln -sf /mnt/openwrt/bin openwrt/bin
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
 
-    - name: Update feeds
+    - name: Update&Install feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
-
-    - name: Setup tmate session if SSH is enabled
-      uses: csexton/debugger-action@master
-      if: github.event.inputs.ssh == 'true'
 
     - name: Defconfig ${{matrix.target}}
       env:
@@ -127,7 +123,11 @@ jobs:
         ./scripts/feeds install -a
         cp -f feeds/smpackage/.github/diy/${{matrix.target}}.config .config && make defconfig
         #sed -i 's/CONFIG_BINUTILS_VERSION="2.42"/CONFIG_BINUTILS_VERSION="2.43.1"/' .config
-        
+
+    - name: Setup tmate session if SSH is enabled
+      uses: csexton/debugger-action@master
+      if: github.event.inputs.ssh == 'true'
+
     - name: Download package
       working-directory: ./openwrt
       run: |
