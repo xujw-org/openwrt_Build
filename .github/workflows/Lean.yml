@@ -15,6 +15,11 @@ on:
         description: 'ssh'
         required: false
         default: 'false'
+      ssh_debug:
+        type: boolean
+        description: 'ssh配置包'
+        required: false
+        default: 'false'
 
 env:
   UPLOAD_BIN_DIR: false
@@ -126,7 +131,7 @@ jobs:
 
     - name: Setup tmate session if SSH is enabled
       uses: csexton/debugger-action@master
-      if: github.event.inputs.ssh == 'true'
+      if: github.event.inputs.ssh_debug == 'true'
 
     - name: Download package
       working-directory: ./openwrt
