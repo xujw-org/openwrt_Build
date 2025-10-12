@@ -190,6 +190,7 @@ jobs:
         
     - name: Deploy imagebuilder to server
       uses: easingthemes/ssh-deploy@main
+      if: github.event.inputs.ssh == 'true'
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         ARGS: "-avzr --exclude="
